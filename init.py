@@ -19,7 +19,7 @@ def get_options():
 
     # optional
     #options.show_refresh_rate = 1
-    options.gpio_slowdown = 4 # 1-4
-    #options.disable_hardware_pulsing = True
+    options.gpio_slowdown = 3 # 1-4
+    #options.disable_hardware_pulsing = False
     return options
 
