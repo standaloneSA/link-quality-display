@@ -33,18 +33,19 @@ class dash_widget(object):
             sys.exit(1)
 
     def show_box(self, color=white):
-        graphics.DrawLine(self.canvas, self.x1, self.y1, self.x2, self.y1, color)
-        graphics.DrawLine(self.canvas, self.x2, self.y1, self.x2, self.y2, color)
-        graphics.DrawLine(self.canvas, self.x2, self.y2, self.x1, self.y2, color)
-        graphics.DrawLine(self.canvas, self.x1, self.y1, self.x1, self.y2, color)
+        draw_square(self.canvas, self.x1, self.y1, self.x2, self.y2, color)
 
     def run(self):
         """ Please Override Me """
         pass
 
+class label(dash_widget):
+    def text(self, text):
+        graphics.DrawText(self.canvas, self.font, self.x1, self.y2, self.color, text)
+
 class clock(dash_widget):
 
-    def run(self, canvas):
+    def run(self):
         graphics.DrawText(self.canvas, self.font, self.x1, self.y2, self.color, str(datetime.now().strftime("%H:%M:%S")))
 
 class current_status(dash_widget):
@@ -57,9 +58,9 @@ class current_status(dash_widget):
 
     def set_status(self, status):
         if status == "OK":
-            self.color = green
+            self.color = dim_green
         elif status == "WARN":
-            self.color = yellow
+            self.color = dim_yellow
         elif status == "CRITICAL":
             self.color = red
         else:
