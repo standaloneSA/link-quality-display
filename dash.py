@@ -5,6 +5,9 @@ from rgbmatrix import RGBMatrix, RGBMatrixOptions, graphics
 import init
 from color_names import *
 import dash_modules
+from netcheck import NetCheck
+
+host = 'www.starlink.com'
 
 options = init.get_options()
 root_canvas = RGBMatrix(options=options)
@@ -29,9 +32,12 @@ last_seen.color = dim_gray
 def clear_frame(canvas, color=black):
     canvas.Fill(0,0,0)
 
+check_host = NetCheck(host=host)
+
+check_host.update()
 while True:
     clear_frame(canvas)
-
+    
     clock_label.canvas = canvas
     #clock_label.show_box()
     clock_label.text("Current:")
@@ -48,5 +54,6 @@ while True:
     last_seen.text("Last seen:") 
 
     canvas = root_canvas.SwapOnVSync(canvas)
+
 
 
