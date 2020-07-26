@@ -48,13 +48,14 @@ class histogram(dash_widget):
             histogram. 
         """
         height = self.y2 - self.y1
+        if num == 0:
+            return 1
         return height/(100/num)
 
     def run(self):
         base_point = (self.x2, self.y1)
         x = base_point[0]
         for item in self.history:
-            print("Drawing line at %s, %s" % (x, base_point[1]))
             graphics.DrawLine(self.canvas, 
                 x, base_point[1], 
                 x, base_point[1] + self.map(item['value']), item['color'])
