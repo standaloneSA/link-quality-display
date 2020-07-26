@@ -39,6 +39,33 @@ class dash_widget(object):
         """ Please Override Me """
         pass
 
+class histogram(dash_widget):
+    history = []
+    def map(self, num):
+        """ 
+            Translates the given num (assumed to be % of 100) into
+            an appropriate number for the height of the current 
+            histogram. 
+        """
+        height = self.y2 - self.y1
+        return height/(100/num)
+
+    def run(self):
+        base_point = (self.x2, self.y1)
+        x = base_point[0]
+        for item in self.history:
+            print("Drawing line at %s, %s" % (x, base_point[1]))
+            graphics.DrawLine(self.canvas, 
+                x, base_point[1], 
+                x, base_point[1] + self.map(item['value']), item['color'])
+            x -= 1
+        length = self.x2 - self.x1
+        if len(self.history) > length:
+            self.history.pop(0)
+
+    def update_data(self, hist):
+        self.history.append(hist)
+
 class label(dash_widget):
     def text(self, text):
         graphics.DrawText(self.canvas, self.font, self.x1, self.y2, self.color, text)
@@ -65,7 +92,3 @@ class current_status(dash_widget):
             self.color = red
         else:
             self.color = dim_magenta
-   
-class histogram(dash_widget):
-    def run(self): 
-        pass

@@ -43,10 +43,11 @@ class NetCheck(object):
         return str_out
 
     def check_alive(self):
-        ping_res = ping(self.data["host"], count=3, interval=0.1, timeout=1)
+        ping_res = ping('www.starlink.com', count=3, interval=0.1, timeout=1)
+        #ping_res = ping(self.data["host"], count=3, interval=0.1, timeout=1)
         self.data["is_alive"] = ping_res.is_alive
         if ping_res.is_alive:
-            self.data['last_seen_alive'] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            self.data['last_seen_alive'] = datetime.now().strftime("%H:%M:%S")
         return ping_res.is_alive
     
     def check_link_quality(self):

@@ -16,6 +16,7 @@ def get_options():
     options.led_rgb_sequence = "RGB"
     options.pixel_mapper_config = ""
     options.panel_type = ""
+    options.drop_privileges = False
 
     # optional
     #options.show_refresh_rate = 1
